@@ -37,7 +37,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class EsptouchDemoActivity extends AppCompatActivity implements OnClickListener {
-    private static final String TAG = "EsptouchDemoActivity";
+    private static final String TAG = "乐鑫";
 
     private static final boolean AES_ENABLE = false;
     private static final String AES_SECRET_KEY = "1234567890123456"; // TODO modify your own key
@@ -80,16 +80,16 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.esptouch_demo_activity);
 
-        mApSsidTV = findViewById(R.id.ap_ssid_text);
-        mApBssidTV = findViewById(R.id.ap_bssid_text);
-        mApPasswordET = findViewById(R.id.ap_password_edit);
-        mDeviceCountET = findViewById(R.id.device_count_edit);
+        mApSsidTV = (TextView) findViewById(R.id.ap_ssid_text);
+        mApBssidTV =(TextView) findViewById(R.id.ap_bssid_text);
+        mApPasswordET = (EditText) findViewById(R.id.ap_password_edit);
+        mDeviceCountET = (EditText) findViewById(R.id.device_count_edit);
         mDeviceCountET.setText("1");
-        mConfirmBtn = findViewById(R.id.confirm_btn);
+        mConfirmBtn = (Button) findViewById(R.id.confirm_btn);
         mConfirmBtn.setEnabled(false);
         mConfirmBtn.setOnClickListener(this);
 
-        TextView versionTV = findViewById(R.id.version_tv);
+        TextView versionTV = (TextView) findViewById(R.id.version_tv);
         versionTV.setText(IEsptouchTask.ESPTOUCH_VERSION);
 
         IntentFilter filter = new IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION);
@@ -115,7 +115,7 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
                 mTask.cancelEsptouch();
                 mTask = null;
                 new AlertDialog.Builder(EsptouchDemoActivity.this)
-                        .setMessage("Wifi disconnected or changed")
+                        .setMessage("WiFi断开连接或有变动")
                         .setNegativeButton(android.R.string.cancel, null)
                         .show();
             }
@@ -171,7 +171,7 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
 
             @Override
             public void run() {
-                String text = result.getBssid() + " is connected to the wifi";
+                String text = result.getBssid() + " 连接上WiFi+";
                 Toast.makeText(EsptouchDemoActivity.this, text,
                         Toast.LENGTH_LONG).show();
             }
@@ -214,14 +214,14 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
         protected void onPreExecute() {
             Activity activity = mActivity.get();
             mProgressDialog = new ProgressDialog(activity);
-            mProgressDialog.setMessage("Esptouch is configuring, please wait for a moment...");
+            mProgressDialog.setMessage("乐鑫正在连接，请稍等片刻...");
             mProgressDialog.setCanceledOnTouchOutside(false);
             mProgressDialog.setOnCancelListener(new OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
                     synchronized (mLock) {
                         if (__IEsptouchTask.DEBUG) {
-                            Log.i(TAG, "progress dialog back pressed canceled");
+                            Log.i(TAG, "返回取消");
                         }
                         if (mEsptouchTask != null) {
                             mEsptouchTask.interrupt();
@@ -235,7 +235,7 @@ public class EsptouchDemoActivity extends AppCompatActivity implements OnClickLi
                         public void onClick(DialogInterface dialog, int which) {
                             synchronized (mLock) {
                                 if (__IEsptouchTask.DEBUG) {
-                                    Log.i(TAG, "progress dialog cancel button canceled");
+                                    Log.i(TAG, "返回取消");
                                 }
                                 if (mEsptouchTask != null) {
                                     mEsptouchTask.interrupt();
